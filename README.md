@@ -1,5 +1,5 @@
 # covidToscana
-Dati contagi Covid Toscsna
+Dati contagi Covid Toscana e provincia di Pisa
 
 Semplice file HTMl e Javascript per recuiperare i dati da: https://github.com/pcm-dpc.
 
