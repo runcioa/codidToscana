@@ -8,46 +8,69 @@
   
   let datiToscanaGiorno = new Array;
   let datiToscanaCasi = new Array;
-  let datiToscanaCasiPrevisione = new Array;
+  let datiToscanaCasiDifferenzaDati = new Array;
   let tabellaToscana = '';
-
+  let temp= '';
   
   data.forEach(function(el, index){
     
     if(el.denominazione_regione == "Toscana"){
+    
     datiToscanaGiorno.push(el.data.substring(0,10));
     datiToscanaCasi.push(el.totale_casi);
-
-    tabellaToscana += "<tr><td>"+ el.data.substring(0,10) + "</td>" + "<td>"+ el.totale_casi + "</td></tr>"  
+    datiToscanaCasiDifferenza = el.totale_casi - temp
+    datiToscanaCasiDifferenzaDati.push(datiToscanaCasiDifferenza);
+    temp = el.totale_casi;
+    tabellaToscana += "<tr><td>"+ el.data.substring(0,10) + "</td>" + "<td>"+ el.totale_casi + "</td>" + "<td>" + datiToscanaCasiDifferenza + "</td></tr>"  
   }
 
   })
+
   $('#tabellaToscana').append(tabellaToscana);
   
-  
-  console.log(datiToscanaCasi);
-   
-    var ctx = document.getElementById('myChart').getContext('2d');
+   var ctx = document.getElementById('ToscanaTotale').getContext('2d');
     
-    var chart = new Chart(ctx, {
-      // The type of chart we want to create
-      type: 'line',
+  var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'line',
 
-      // The data for our dataset
-      data: {
-          labels: datiToscanaGiorno,
-          datasets: [{
-              label: 'Infetti Toscana',
-              backgroundColor: 'rgb(255, 99, 132)',
-              borderColor: 'rgb(255, 99, 132)',
-              fill: false,
-              data: datiToscanaCasi
-          }]
-      },
-      options: {
-          responsive: true
-      }
-    })
+    // The data for our dataset
+    data: {
+        labels: datiToscanaGiorno,
+        datasets: [{
+            label: 'Infetti Toscana',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            fill: false,
+            data: datiToscanaCasi
+        }]
+    },
+    options: {
+        responsive: true
+    }
+  })
+
+  var ctx = document.getElementById('ToscanaDifferenza').getContext('2d');
+  
+  var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'bar',
+
+    // The data for our dataset
+    data: {
+        labels: datiToscanaGiorno,
+        datasets: [{
+            label: 'Infetti Toscana differenza giornaliera',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            fill: false,
+            data: datiToscanaCasiDifferenzaDati
+        }]
+    },
+    options: {
+        responsive: true
+    }
+  })
 
     var ctx2 = document.getElementById('myChart2').getContext('2d');
     
@@ -70,8 +93,7 @@
               backgroundColor: 'rgb(150, 154, 132)',
               borderColor: 'rgb(150, 154, 132)',
               fill: false,
-              data: [0,2,2,2,8,11,13,13,19,38,61,79,113,166,208,264,320,364,470,630,781,866,994,1126,1266,
-                    1413,1569   ,1732   ,1904   ,2083   ,2270   ,2465   ,2668   ,2878   ,3097   ,3323   ,3558]
+              data: [0,2,2,2,8,11,13,13,19,38,61,79,113,166,208,264,320,364,470,630,781,866,1053,1330,1482,1793,2012,2277,2639,2997,3388,3812,4270,4765,5297,5868,6480]
 
         }]
       },
